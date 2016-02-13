@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PublicacionEditDlg" widgetVar="PublicacionEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPublicacionTitle}">
+            <h:form id="PublicacionEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{publicacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPublicacionLabel_idPublicacion}" for="idPublicacion" />
+                        <p:inputText id="idPublicacion" value="#{publicacionController.selected.idPublicacion}" title="#{bundle.EditPublicacionTitle_idPublicacion}" required="true" requiredMessage="#{bundle.EditPublicacionRequiredMessage_idPublicacion}"/>
+                        <p:outputLabel value="#{bundle.EditPublicacionLabel_lugGeoPublicacion}" for="lugGeoPublicacion" />
+                        <p:inputText id="lugGeoPublicacion" value="#{publicacionController.selected.lugGeoPublicacion}" title="#{bundle.EditPublicacionTitle_lugGeoPublicacion}" />
+                        <p:outputLabel value="#{bundle.EditPublicacionLabel_descripconPublicacion}" for="descripconPublicacion" />
+                        <p:inputText id="descripconPublicacion" value="#{publicacionController.selected.descripconPublicacion}" title="#{bundle.EditPublicacionTitle_descripconPublicacion}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{publicacionController.update}" value="#{bundle.Save}" update="display,:PublicacionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PublicacionEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PublicacionEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

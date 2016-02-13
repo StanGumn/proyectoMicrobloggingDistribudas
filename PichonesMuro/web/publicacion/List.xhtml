@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Pichones Publica"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+
+            <script src="http://plantillasgratis.comuv.com/disemucho/pajaro_twitter_navidad/twitter/disemucho.js" type="text/javascript">
+            </script><script type="text/javascript">
+            //<![CDATA[
+                var birdSprite = 'http://u.jimdo.com/www21/o/s4e9df44a0ad8ccd8/img/iffeafe7e991f963f/1341590653/std/image.png';
+                var targetElems = new Array('img', 'hr', 'table', 'td', 'div', 'input', 'textarea', 'button',
+                        'select', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'p', 'code', 'object', 'a', 'b', 'strong', 'span');
+                var twitterAccount = 'http://192.168.10.2:8080/PichonesMuro/';
+                var twitterThisText = 'Pichones';
+                tripleflapInit();
+            //]]>
+            </script>
+
+
+            <h:form id="PublicacionListForm">
+                <p:panel header="Muro Pichones">
+                    <p:dataTable id="datalist"  value="#{publicacionController.items}" var="item"
+                                 selection="#{publicacionController.selected}"
+                                 paginator="false"
+                                 rowKey="#{item.idPublicacion}"
+                                 rows="500"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Mensaje"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripconPublicacion}"/>
+                        </p:column>
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputText value="Mensaje enviado desde: "/>
+                            </f:facet>
+                            <h:outputText value="#{item.lugGeoPublicacion}"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="ACTUALIZAR "  update=":PublicacionCreateForm" oncomplete="PF('PublicacionCreateDialog').show()"/>
+                            <p:commandButton id="viewButton" rendered="null" icon="ui-icon-search" value="#{bundle.View}" update=":PublicacionViewForm" oncomplete="PF('PublicacionViewDialog').show()" disabled="#{empty publicacionController.selected}"/>
+                            <p:commandButton id="editButton" rendered="null"  icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PublicacionEditForm" oncomplete="PF('PublicacionEditDialog').show()" disabled="#{empty publicacionController.selected}"/>
+                            <p:commandButton id="deleteButton" rendered="null" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{publicacionController.destroy}" update=":growl,datalist" disabled="#{empty publicacionController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

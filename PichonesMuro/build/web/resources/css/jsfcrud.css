@@ -1,0 +1,24 @@
+.ui-widget {
+    font-size: 17px !important;
+    background-image: url("resources/css/fondo.png");
+   
+}
+.ui-layout-north {
+    z-index: 20 !important;
+    background-color: #21C697;
+    overflow: visible !important;;
+    
+}
+.ui-layout-north .ui-layout-unit-content {
+    overflow: visible !important;
+    
+}
+.ui-widget-header {
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #21C697;
+}
+.ui-button {
+    margin-top: 10px !important;
+    
+}
